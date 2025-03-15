@@ -72,18 +72,18 @@ TRAINING_ARGS=(
     --micro-batch-size 48  #96 #48  #96 
     --global-batch-size 768  #384 #  #192  #1536     #revise 
     # --rampup-batch-size 16 16 5859375   #revise
-    --train-iters 40000 #8140   #833333 #640000  #52084  #maybe can be larger?
+    --train-iters 120000 #8140   #833333 #6120000  #52084  #maybe can be larger?
     --weight-decay 0.001   ##0.02
     --adam-beta1 0.9 
     --adam-beta2 0.95 
     --init-method-std 0.006 
     --clip-grad 1.0 
     --fp16
-    --lr 0.002
+    --lr 0.00002
     --lr-decay-style cosine 
-    --min-lr 0.0001
-    --lr-warmup-fraction 0.01919975424  #0.01
-    --lr-decay-iters 40000
+    --min-lr 0.000001
+    --lr-warmup-fraction 0.016  #0.01
+    --lr-decay-iters 120000
 )
 
 #revise

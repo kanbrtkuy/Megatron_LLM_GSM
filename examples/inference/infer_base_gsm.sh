@@ -21,8 +21,7 @@ echo "Running with layer repetition mode: $REPEAT_MODE" #> ./layer_repeat_config
 ####################
 
 
-OUTPUT_PATH="./datasets/igsm/base_e23_pred.txt"
-export OUTPUT_PATH=$OUTPUT_PATH
+
 
 
 export CUDA_DEVICE_MAX_CONNECTIONS=1
@@ -37,8 +36,11 @@ DISTRIBUTED_ARGS="--nproc_per_node 1 \
                  --node_rank 0 \
                  --master_addr localhost \
                  --master_port 6000"
-                 
-CHECKPOINT=./results/gsm_base_p50_b4_v0/ckpts/  #./results/train_base_random/ckpts/
+
+OUTPUT_PATH="./datasets/igsm/base_le15_pred.txt"
+export OUTPUT_PATH=$OUTPUT_PATH
+
+CHECKPOINT=./results/gsm_base_p100_b8_v0_ver1_backup/ckpts/  #./results/train_base_random/ckpts/
 VOCAB_FILE=./datasets/gpt2-vocab.json
 MERGE_FILE=./datasets/gpt2-merges.txt
 DATA_PATH=./datasets/prefix_text_document/gsm_text_document  # 确保这是训练数据的路径
@@ -49,7 +51,7 @@ DATA_PATH=./datasets/prefix_text_document/gsm_text_document  # 确保这是训�
 torchrun $DISTRIBUTED_ARGS tools/run_logits_gsm.py \
    --tensor-model-parallel-size 1 \
    --pipeline-model-parallel-size 1 \
-   --num-layers 4 \
+   --num-layers 8 \
    --hidden-size 768 \
    --load ${CHECKPOINT} \
    --num-attention-heads 12 \

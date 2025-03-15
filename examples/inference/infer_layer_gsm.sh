@@ -20,8 +20,7 @@ echo "Running with layer repetition mode: $REPEAT_MODE" #> ./layer_repeat_config
 [ "$REPEAT_MODE" == "custom" ] && echo "Custom repeat pattern: $CUSTOM_REPEAT_PATTERN" #>> ./layer_repeat_config.log
 ####################
 
-OUTPUT_PATH="./datasets/igsm/layer_e23_pred.txt"
-export OUTPUT_PATH=$OUTPUT_PATH
+
 
 export CUDA_DEVICE_MAX_CONNECTIONS=1
 export CUDA_LAUNCH_BLOCKING=1
@@ -36,6 +35,11 @@ DISTRIBUTED_ARGS="--nproc_per_node 1 \
                  --master_addr localhost \
                  --master_port 6000"
                  
+
+OUTPUT_PATH="./datasets/igsm/layer_e23_pred.txt"
+export OUTPUT_PATH=$OUTPUT_PATH
+
+
 CHECKPOINT=./results/gsm_layer_p50_b4_v4/ckpts/  #./results/train_base_random/ckpts/
 VOCAB_FILE=./datasets/gpt2-vocab.json
 MERGE_FILE=./datasets/gpt2-merges.txt

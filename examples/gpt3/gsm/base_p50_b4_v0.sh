@@ -41,8 +41,8 @@ NUM_NODES=1
 NODE_RANK=0
 WORLD_SIZE=$(($GPUS_PER_NODE*$NUM_NODES))
 
-CHECKPOINT_PATH='./results/gsm_base_p50_b4_v0_new/ckpts/'   #$1 #<Specify path>  
-TENSORBOARD_LOGS_PATH='./results/gsm_base_p50_b4_v0_new/tensorboard/' #$2 #<Specify path>
+CHECKPOINT_PATH='./results/gsm_base_p50_b4_v0/ckpts/'   #$1 #<Specify path>  
+TENSORBOARD_LOGS_PATH='./results/gsm_base_p50_b4_v0/tensorboard/' #$2 #<Specify path>
 VOCAB_FILE='./datasets/gpt2-vocab.json' #$3 #<Specify path to file>/gpt2-vocab.json
 MERGE_FILE='./datasets/gpt2-merges.txt' #$4 #<Specify path to file>/gpt2-merges.txt
 DATA_PATH='./datasets/prefix_text_document/gsm_text_document'  #$5 #<Specify path and file prefix>_text_document
@@ -72,18 +72,18 @@ TRAINING_ARGS=(
     --micro-batch-size 48  #96 #48  #96 
     --global-batch-size 768  #384 #  #192  #1536     #revise 
     # --rampup-batch-size 16 16 5859375   #revise
-    --train-iters 40000 #8140   #833333 #640000  #52084  #maybe can be larger?
+    --train-iters 120000 #8140   #833333 #640000  #52084  #maybe can be larger?
     --weight-decay 0.001   ##0.02
     --adam-beta1 0.9 
     --adam-beta2 0.95 
     --init-method-std 0.006 
     --clip-grad 1.0 
     --fp16
-    --lr 0.002
+    --lr 0.00002
     --lr-decay-style cosine 
-    --min-lr 0.0001
-    --lr-warmup-fraction 0.01919975424  #0.01
-    --lr-decay-iters 40000
+    --min-lr 0.000001
+    --lr-warmup-fraction 0.016  #0.01
+    --lr-decay-iters 120000
 )
 
 
@@ -120,4 +120,4 @@ torchrun ${DISTRIBUTED_ARGS[@]} pretrain_gpt.py \
     ${TRAINING_ARGS[@]} \
     ${MODEL_PARALLEL_ARGS[@]} \
     ${DATA_ARGS[@]} \
-    ${EVAL_AND_LOGGING_ARGS[@]} > ./results/gsm_base_p50_b4_v0_new.log
+    ${EVAL_AND_LOGGING_ARGS[@]} > ./results/gsm_base_p50_b4_v0.log
